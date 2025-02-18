@@ -6,15 +6,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class GeolocationService {
+  public currentLocationCoords$: BehaviorSubject<any> = new BehaviorSubject(
+    null
+  );
 
-  public citySelected$: BehaviorSubject<any> = new BehaviorSubject({
-    name: 'Ciudad Guayana',
-    value: 'PZO',
-  });
-
-  constructor(
-    private geolocation: Geolocation
-  ) {}
+  constructor(private geolocation: Geolocation) {}
 
   initGeoLocation() {
     this.geolocation
@@ -24,8 +20,10 @@ export class GeolocationService {
         // resp.coords.latitude
         // resp.coords.longitude
         if (resp) {
-          
-
+          this.currentLocationCoords$.next({
+            latitude: resp.coords.latitude,
+            longitude: resp.coords.longitude,
+          });
         }
       })
       .catch((error) => {
@@ -37,7 +35,10 @@ export class GeolocationService {
       // data can be a set of coordinates, or an error (if an error occurred).
       // data.coords.latitude
       // data.coords.longitude
-      
+      this.currentLocationCoords$.next({
+        latitude: data.coords.latitude,
+        longitude: data.coords.longitude,
+      });
     });
   }
 }
