@@ -3,13 +3,15 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
+  <ion-fab horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="openModal()">
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <div id="container">
 
     <app-location-detail [locationCity]="currentLocationCity" [locationCondition]="currentLocationCondition"></app-location-detail>
-    <!-- <strong class="capitalize">Home</strong>
-
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
 
   </div>
 </ion-content>

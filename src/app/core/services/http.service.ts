@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URI } from 'src/app/shared/constants/uri';
 import { ICurrent } from 'src/app/shared/interfaces/current';
+import { ICityResult } from 'src/app/shared/interfaces/searchResult';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -30,7 +31,7 @@ export class HttpService {
     }
     params = params.append('key', environment.apiKey);
     const url = `${environment.apiUrl}${URI.GET_SEARCH_DATA}`;
-    return this.http.get<ICurrent>(url, {params});
+    return this.http.get<ICityResult[]>(url, {params});
   }
 
 }

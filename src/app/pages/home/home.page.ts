@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { SearchModalComponent } from 'src/app/shared/components/search-modal/search-modal.component';
 import { ICoords } from 'src/app/shared/interfaces/coords';
 import { Current, Location } from 'src/app/shared/interfaces/current';
 
@@ -18,7 +20,8 @@ export class HomePage implements OnInit {
 
   constructor(
     private geolocationService: GeolocationService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -30,6 +33,16 @@ export class HomePage implements OnInit {
         }
       }
     );
+  }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: SearchModalComponent,
+      cssClass: 'modal-select-city',
+      animated: true
+    });
+    modal.present();
+
   }
 
   getCurrentLocationData() {

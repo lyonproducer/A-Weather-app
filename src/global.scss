@@ -42,3 +42,21 @@
 .d-flex {
   display: flex;
 }
+
+
+.modal-select-city {
+  --width: 90%;
+  --height: 84%;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+
+  @media screen and (min-width: 590px) {
+    --width: 70%;
+    --height: 64%;
+  }
+
+  @media screen and (min-width: 720px) {
+    --width: 40%;
+    --height: 64%;
+  }
+}

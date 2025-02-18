@@ -1,0 +1,37 @@
+
+
+<ion-header mode="md" class="ion-padding">
+  <ion-toolbar mode="md">
+    <ion-title>Search City</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar mode="md">
+    <ion-searchbar #searchInput animated="true" placeholder="Type city name or postal code" show-clear-button="focus" [debounce]="1000" (ionInput)="onHandleSearch(searchInput)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  @for (result of results; track result) {
+    <ion-item>
+      <ion-checkbox [checked]="resultSelected === result" #checkBox (ionChange)="onSelectOption(result)"></ion-checkbox>
+      <ion-label>{{ result.name }}</ion-label>
+    </ion-item>
+  }
+
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button color="primary" expand="block" fill="solid" shape="round" (click)="dismiss()">Select</ion-button>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button color="medium" expand="block" fill="solid" 
+        (click)="dismiss()" shape="round">Back</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
