@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HeaderMainComponent } from './header-main/header-main.component';
+import { LocationDetailComponent } from './location-detail/location-detail.component';
 
 @NgModule({
   declarations: [
-    HeaderMainComponent
+    HeaderMainComponent,
+    LocationDetailComponent
   ],
-  imports: [ 
-    CommonModule, 
+  imports: [
+    CommonModule,
     IonicModule
   ],
   exports: [
-    HeaderMainComponent
+    HeaderMainComponent,
+    LocationDetailComponent
   ],
   providers: [],
 })

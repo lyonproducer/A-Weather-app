@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { ICoords } from 'src/app/shared/interfaces/coords';
+import { Current, Location } from 'src/app/shared/interfaces/current';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ import { ICoords } from 'src/app/shared/interfaces/coords';
 export class HomePage implements OnInit {
 
   currentLocationCoords?: ICoords;
+  currentLocationCity?: Location;
+  currentLocationCondition?: Current;
 
   constructor(
     private geolocationService: GeolocationService,
@@ -21,18 +24,23 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.geolocationService.currentLocationCoords$.subscribe(
       (res: ICoords)=> {
-        this.currentLocationCoords = res;
+        if(res.latitude !== 0 && res.longitude !== 0) {
+          this.currentLocationCoords = res;
+          this.getCurrentLocationData();
+        }
       }
     );
   }
 
   getCurrentLocationData() {
     this.httpService.getCurrent(`${ this.currentLocationCoords?.latitude },${ this.currentLocationCoords?.longitude }`).subscribe({
-      next: () => {
-
+      next: (res) => {
+        this.currentLocationCity = res.location;
+        this.currentLocationCondition = res.current;
+        console.log(res);
       },
       error: (e) => {
-        
+        console.log(e);
       }
     })
   }

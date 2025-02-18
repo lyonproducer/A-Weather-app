@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { BehaviorSubject } from 'rxjs';
+import { ICoords } from 'src/app/shared/interfaces/coords';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeolocationService {
-  public currentLocationCoords$: BehaviorSubject<any> = new BehaviorSubject(
-    null
+  public currentLocationCoords$: BehaviorSubject<ICoords> = new BehaviorSubject(
+    {
+      latitude: 0, longitude: 0
+    }
   );
 
   constructor(private geolocation: Geolocation) {}
