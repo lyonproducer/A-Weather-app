@@ -6,12 +6,14 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Home', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Favorites', url: '/folder/outbox', icon: 'heart' },
-    { title: 'History', url: '/folder/favorites', icon: 'document' },
-  ];
 
   
+  public appPages = [
+    { title: 'Home', url: '/home', icon: 'cloud' },
+    { title: 'Favorites', url: '/favorites', icon: 'heart' },
+    { title: 'History', url: '/history', icon: 'document' },
+  ];
+
+
   constructor() {}
 }
