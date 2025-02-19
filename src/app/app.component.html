@@ -31,6 +31,9 @@
         <hr />
 
         <ion-list>
+
+          <ion-note>Settings</ion-note>
+
           <ion-item>
             <ion-select
               interface="popover"
@@ -43,6 +46,20 @@
               <ion-select-option value="C">Celsius</ion-select-option>
               <ion-select-option value="F">Fahrenheit</ion-select-option>
             </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-select
+            interface="popover"
+            placeholder="Select Theme"
+            [(ngModel)]="darkMode"
+            name="darkMode"
+            (ionChange)="setAppTheme()"
+            label="Dark Mode" label-placement="fixed"
+          >
+            <ion-select-option value="true">Dark</ion-select-option>
+            <ion-select-option value="false">Light</ion-select-option>
+          </ion-select>
           </ion-item>
         </ion-list>
       </ion-content>

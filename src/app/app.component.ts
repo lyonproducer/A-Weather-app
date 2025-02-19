@@ -18,6 +18,8 @@ import { SettingsService } from './core/services/settings.service';
 })
 export class AppComponent {
   currentUrl = '';
+  darkMode = 'false';
+
   scaleSelected = 'C';
 
   public appPages = [
@@ -73,5 +75,9 @@ export class AppComponent {
 
   onHandleGradeChange() {
     this.settings.changeScale(this.scaleSelected);
+  }
+
+  setAppTheme() {
+    document.documentElement.classList.toggle('ion-palette-dark', this.darkMode.toLowerCase() === 'true');
   }
 }
