@@ -10,7 +10,6 @@ List all the required software and tools that need to be installed before settin
 - Node.js (v16 or later recommended)
 - npm (or yarn)
 - Ionic CLI (v6 or later recommended): `npm install -g @ionic/cli`
-- Cordova (if using native features): `npm install -g cordova`
 - Git (for version control)
 - Android Studio and SDK (for Android development)
 - Xcode (for iOS development)
