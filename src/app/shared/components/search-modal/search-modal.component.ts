@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpService } from 'src/app/core/services/http.service';
-import { ICityResult } from '../../interfaces/searchResult';
+import { ICityResult } from '../../interfaces/cityResult.interface';
 
 @Component({
   selector: 'app-search-modal',
@@ -14,6 +14,7 @@ export class SearchModalComponent  implements OnInit {
   searchInput = '';
   results: ICityResult[]= [];
   resultSelected?: ICityResult;
+  isLoading = false;
 
   constructor(
     private modalController: ModalController,
@@ -35,15 +36,15 @@ export class SearchModalComponent  implements OnInit {
   }
 
   onHandleSearch(event: any) {
-
+    this.isLoading = true;
     this.httpService.getSearch(event.value).subscribe({
       next: (res) => {
-
-        console.log(res);
         this.results = res;
+        this.isLoading = false;
       },
       error: (e) => {
         console.log(e);
+        this.isLoading = false;
       }
     })
   }

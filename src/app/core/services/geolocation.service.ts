@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { BehaviorSubject } from 'rxjs';
-import { ICoords } from 'src/app/shared/interfaces/coords';
+import { ICoords } from 'src/app/shared/interfaces/coords.interface';
 
 @Injectable({
   providedIn: 'root',

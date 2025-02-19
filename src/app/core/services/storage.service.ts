@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { FAVORITE_LOCAL, HISTORY_LOCAL } from 'src/app/shared/constants/storageNames';
+import { HistoryService } from './history.service';
+import { FavoriteService } from './favorite.service';
 
 @Injectable({
   providedIn: 'root'

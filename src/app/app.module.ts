@@ -9,13 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { DB_NAME } from './shared/constants/storageNames';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
-    IonicStorageModule.forRoot({name: 'weatherAppDB', storeName: 'weatherAppDB'}),
+    IonicStorageModule.forRoot({name: DB_NAME, storeName: DB_NAME}),
     AppRoutingModule
   ],
   providers: [

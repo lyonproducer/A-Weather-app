@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URI } from 'src/app/shared/constants/uri';
-import { ICurrent } from 'src/app/shared/interfaces/current';
-import { ICityResult } from 'src/app/shared/interfaces/searchResult';
+import { ICurrent } from 'src/app/shared/interfaces/current.interface';
+import { ICityResult } from 'src/app/shared/interfaces/cityResult.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Current, Location } from '../../interfaces/current';
+import { Current, Location } from '../../interfaces/current.interface';
 
 @Component({
   selector: 'app-location-detail',
