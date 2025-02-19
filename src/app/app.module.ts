@@ -15,7 +15,12 @@ import { DB_NAME } from './shared/constants/storageNames';
   declarations: [AppComponent],
   imports: [
     BrowserModule, 
-    IonicModule.forRoot(), 
+    IonicModule.forRoot(
+      {
+        innerHTMLTemplatesEnabled: true,
+        sanitizerEnabled: true
+      }
+    ), 
     IonicStorageModule.forRoot({name: DB_NAME, storeName: DB_NAME}),
     AppRoutingModule
   ],

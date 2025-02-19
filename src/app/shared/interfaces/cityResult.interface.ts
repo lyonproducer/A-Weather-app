@@ -6,4 +6,5 @@ export interface ICityResult {
   lat: number
   lon: number
   url: string
+  created?: number;
 }

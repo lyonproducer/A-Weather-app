@@ -11,7 +11,26 @@
 
   <div id="container">
 
-    <app-location-detail [locationCity]="currentLocationCity" [locationCondition]="currentLocationCondition"></app-location-detail>
+    @if(currentLocationCity && currentLocationCondition) {
+      <app-location-detail 
+        [locationCity]="currentLocationCity" 
+        [locationCondition]="currentLocationCondition"
+        (addItem)="saveToFavorite($event)"
+        (removeItem)="removeFromFavorite($event)"
+        [isLoading]="isLoading"
+      ></app-location-detail>
+    } 
+    
+    @if(!currentLocationCity && !currentLocationCondition && isLoading === false) {
+      <ion-card>
+        <ion-card-content>
+          We could not access to your current Location
+        </ion-card-content>
+      </ion-card>
+    } 
+
+  
+
 
   </div>
 </ion-content>

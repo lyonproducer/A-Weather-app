@@ -24,7 +24,14 @@
 
   @for (result of results; track result) {
     <ion-item (click)="onSelectOption(result)">
-      <ion-label slot="start">{{ result.name }}</ion-label>
+      <ion-label slot="start">
+        <h3>
+          {{ result.name }}
+        </h3>
+        <p>
+          {{ result.country }}
+        </p>
+      </ion-label>
       <ion-checkbox slot="end" [checked]="resultSelected === result" #checkBox (ionChange)="onSelectOption(result)"></ion-checkbox>
     </ion-item>
     <hr>

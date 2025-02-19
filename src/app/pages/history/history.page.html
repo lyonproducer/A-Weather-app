@@ -1,54 +1,15 @@
 
 <app-header-main title="History"></app-header-main>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
 
-
-  @for (item of history; track $index) {
-
-    <ion-card mode="ios">
-
-      <div class="icons-action">
-        <ion-icon name="trash" color="danger"></ion-icon>
-        <ion-icon name="open" color="primary"></ion-icon>
-      </div>
-
-      <ion-card-header>
-        <div>
-          <ion-card-title>  {{item.name}}</ion-card-title>
-        </div>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <ion-col size="6">
-              <h3>
-                <strong>Region:</strong> {{ item?.region }}
-              </h3>
-    
-              <h3>
-                <strong>Country:</strong> {{ item?.country }}
-              </h3>
-            </ion-col>
-    
-            <ion-col size="6">
-    
-              <h3>
-                <strong>Latitude:</strong> {{ item?.lat }}
-              </h3>
-    
-              <h3>
-                <strong>Longitude:</strong> {{ item?.lon }}
-              </h3>
-    
-            </ion-col>
-          </ion-row>
-    
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+  @if(history.length === 0) {
+    <p>There are not history available.</p>
   }
 
+  @for (item of history; track $index) {
+    <app-location-preview [item]="item" mode="history" 
+    (removeItem)="removeFromHistory($event)"></app-location-preview>
+  }
   
 </ion-content>

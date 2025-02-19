@@ -5,3 +5,17 @@ h1 {
 h3 {
   text-align: start;
 }
+
+ion-card {
+  position: relative;
+}
+
+.love-btn {
+  z-index: 999;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  ion-icon {
+    color: var(--ion-color-danger);
+  }
+}

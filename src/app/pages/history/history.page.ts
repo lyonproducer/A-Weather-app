@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HistoryService } from 'src/app/core/services/history.service';
-import { ICityResult } from 'src/app/shared/interfaces/cityResult.interface';
+import { UtilsService } from '../../core/services/utils.service';
+import { ICurrent } from 'src/app/shared/interfaces/current.interface';
 
 @Component({
   selector: 'app-history',
@@ -10,10 +11,11 @@ import { ICityResult } from 'src/app/shared/interfaces/cityResult.interface';
 })
 export class HistoryPage implements OnInit {
 
-  history: ICityResult[] = [];
+  history: ICurrent[] = [];
   
   constructor(
-        private historyService: HistoryService
+        private historyService: HistoryService,
+        private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,15 @@ export class HistoryPage implements OnInit {
         console.log(e);
       }
     })
+  }
+
+  async removeFromHistory(item: ICurrent) {
+    const successRemoved = await this.historyService.removeHistory(item.location.name, item.location.localtime_epoch);
+    if(successRemoved) {
+      this.utilsService.presentToast('success', 'History removed successfully');
+    } else {
+      this.utilsService.presentToast('danger', 'Error trying to remove history');
+    }
   }
 
 }

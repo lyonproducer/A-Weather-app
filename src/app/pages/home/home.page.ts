@@ -6,8 +6,10 @@ import { HistoryService } from 'src/app/core/services/history.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { SearchModalComponent } from 'src/app/shared/components/search-modal/search-modal.component';
 import { ICoords } from 'src/app/shared/interfaces/coords.interface';
-import { Current, Location } from 'src/app/shared/interfaces/current.interface';
+import { Current, ICurrent, Location } from 'src/app/shared/interfaces/current.interface';
 import { ICityResult } from 'src/app/shared/interfaces/cityResult.interface';
+import { FavoriteService } from '../../core/services/favorite.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ export class HomePage implements OnInit {
   currentLocationCity?: Location;
   currentLocationCondition?: Current;
   params = '';
+  isLoading = false;
 
   constructor(
     private geolocationService: GeolocationService,
@@ -28,7 +31,9 @@ export class HomePage implements OnInit {
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private favoriteService: FavoriteService,
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -50,7 +55,7 @@ export class HomePage implements OnInit {
         if(res.latitude !== 0 && res.longitude !== 0) {
           this.currentLocationCoords = res;
           if(this.params === 'current'){
-            this.router.navigateByUrl(`home/${ this.currentLocationCoords?.latitude },${ this.currentLocationCoords?.longitude }`);
+            this.getCurrentLocationData(`${ this.currentLocationCoords?.latitude },${ this.currentLocationCoords?.longitude }`);
           }
         }
       }
@@ -68,8 +73,25 @@ export class HomePage implements OnInit {
     const { data } = await modal.onWillDismiss();
     console.log(data);
     if(data){
-      await this.saveToHistory(data);
-      await this.router.navigateByUrl(`/detail/${ data.url }`);
+      await this.saveToHistory({...data});
+      await this.router.navigateByUrl(`/detail/${data.location.lat},${data.location.lon}`);
+    }
+  }
+
+  async saveToFavorite(data: ICurrent) {
+    let favoritesList = await this.favoriteService.getFavorites();
+    if(favoritesList) {
+      favoritesList.push(data);
+      this.favoriteService.setFavorites(favoritesList);
+    }
+  }
+
+  async removeFromFavorite(item: ICurrent) {
+    const successRemoved = await this.favoriteService.removeFavorites(item.location.name);
+    if(successRemoved) {
+      this.utilsService.presentToast('success', 'Favorite location removed successfully');
+    } else {
+      this.utilsService.presentToast('danger', 'Error trying to remove favorite location');
     }
   }
 
@@ -82,14 +104,17 @@ export class HomePage implements OnInit {
   }
 
   getCurrentLocationData(q: string) {
+    this.isLoading = true;
     this.httpService.getCurrent(q).subscribe({
       next: (res) => {
         this.currentLocationCity = res.location;
         this.currentLocationCondition = res.current;
         console.log(res);
+        this.isLoading = false;
       },
       error: (e) => {
         console.log(e);
+        this.isLoading = false;
       }
     })
   }

@@ -1,7 +1,13 @@
 <app-header-main title="Favorites"></app-header-main>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
 
+  @if(favorites.length === 0) {
+    <p>There are not item favorite available.</p>
+  }
 
+  @for (item of favorites; track $index) {
+    <app-location-preview [item]="item" mode="favorites" (removeItem)="removeFromFavorite($event)"></app-location-preview>
+  }
   
 </ion-content>

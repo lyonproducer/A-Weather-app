@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { AlertController, IonicSafeString, LoadingController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ export class UtilsService {
 
   constructor(
     private loadingController: LoadingController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   async presentLoading() {
@@ -52,4 +53,16 @@ export class UtilsService {
     });
     toast.present();
   }
+
+  async presentAlertConfirm(sms: string, opt: any[]) {
+		const alert = await this.alertController.create({
+      mode: 'md',
+      message: new IonicSafeString(sms),
+			buttons: opt,
+			backdropDismiss : false,
+      cssClass: 'alert-class',
+		});
+		await alert.present();
+	}
+
 }

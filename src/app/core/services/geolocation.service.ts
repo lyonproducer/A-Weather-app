@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { BehaviorSubject } from 'rxjs';
 import { ICoords } from 'src/app/shared/interfaces/coords.interface';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +14,16 @@ export class GeolocationService {
     }
   );
 
-  constructor(private geolocation: Geolocation) {}
+  constructor(
+    private geolocation: Geolocation,
+    private utilsService: UtilsService
+) {}
 
   initGeoLocation() {
     this.geolocation
       .getCurrentPosition()
       .then((resp) => {
-        //console.log("resp.coords.longitude ", resp);
+        console.log("resp.coords.longitude ", resp);
         // resp.coords.latitude
         // resp.coords.longitude
         if (resp) {
@@ -31,6 +35,7 @@ export class GeolocationService {
       })
       .catch((error) => {
         console.log('Error getting location', error);
+        this.utilsService.presentToast('danger', 'Error trying to get current location');
       });
 
     const watch = this.geolocation.watchPosition();

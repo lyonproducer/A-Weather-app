@@ -1,0 +1,53 @@
+
+<ion-card mode="ios">
+
+  <div class="icons-action">
+    @if(mode === 'history') {
+      <ion-icon name="trash" color="danger" (click)="removeFrom(item)"></ion-icon>
+    }
+
+    @if(mode === 'favorites') {
+      <ion-icon name="heart" color="danger" (click)="removeFrom(item)"></ion-icon>
+    }
+
+    <ion-icon name="open" color="primary" (click)="goToDetail(item)"></ion-icon>
+  </div>
+
+  <ion-card-header>
+    <div>
+      <ion-card-title>{{item.location.name}}</ion-card-title>
+      <ion-card-subtitle>
+        {{ item.location.localtime | date}}
+      </ion-card-subtitle>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <h3>
+            <strong>Region:</strong> {{ item.location.region }}
+          </h3>
+
+          <h3>
+            <strong>Country:</strong> {{ item.location.country }}
+          </h3>
+        </ion-col>
+
+        <ion-col size="6">
+
+          <h3>
+            <strong>Latitude:</strong> {{ item.location.lat }}
+          </h3>
+
+          <h3>
+            <strong>Longitude:</strong> {{ item.location.lon }}
+          </h3>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
