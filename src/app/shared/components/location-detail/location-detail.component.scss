@@ -18,4 +18,10 @@ ion-card {
   ion-icon {
     color: var(--ion-color-danger);
   }
+
+  @media screen and (max-width: 590px) {
+    right: 20px;
+    bottom: 20px;
+    top: unset;
+  }
 }
