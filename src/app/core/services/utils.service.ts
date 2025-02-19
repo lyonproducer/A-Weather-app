@@ -17,7 +17,7 @@ export class UtilsService {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Cargando...',
+      message: 'Loading...',
     });
     await this.loading.present();
   }
@@ -39,17 +39,6 @@ export class UtilsService {
       color: color,
       message: message,
       duration: 2000,
-    });
-    toast.present();
-  }
-
-  async presentErrorToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 3000,
-      position: 'top',
-      color: 'danger',
-      cssClass: 'toast',
     });
     toast.present();
   }

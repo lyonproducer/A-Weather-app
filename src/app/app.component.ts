@@ -9,6 +9,7 @@ import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { FavoriteService } from './core/services/favorite.service';
 import { HistoryService } from './core/services/history.service';
+import { SettingsService } from './core/services/settings.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,11 +17,17 @@ import { HistoryService } from './core/services/history.service';
   standalone: false,
 })
 export class AppComponent {
-
   currentUrl = '';
+  scaleSelected = 'C';
+
   public appPages = [
     { title: 'Current', url: '/home/current', icon: 'cloud', include: 'home' },
-    { title: 'Favorites', url: '/favorites', icon: 'heart', include: 'favorites' },
+    {
+      title: 'Favorites',
+      url: '/favorites',
+      icon: 'heart',
+      include: 'favorites',
+    },
     { title: 'History', url: '/history', icon: 'document', include: 'history' },
   ];
 
@@ -31,7 +38,8 @@ export class AppComponent {
     private geolocationService: GeolocationService,
     private router: Router,
     private favoriteService: FavoriteService,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private settings: SettingsService
   ) {
     this.platform.ready().then(async () => {
       await this.localStorage.init();
@@ -50,12 +58,20 @@ export class AppComponent {
       this.geolocationService.initGeoLocation();
     });
 
-    this.router.events.pipe(
-      map((event: any) => event.routerEvent as RouterEvent),
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+    this.router.events
+      .pipe(
+        map((event: any) => event.routerEvent as RouterEvent),
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
       .subscribe((e: RouterEvent) => {
         this.currentUrl = e.url;
-        console.log('this.currentUrl ', this.currentUrl)
+        console.log('this.currentUrl ', this.currentUrl);
       });
+  }
+
+  onHandleGradeChange() {
+    this.settings.changeScale(this.scaleSelected);
   }
 }

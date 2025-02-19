@@ -10,6 +10,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { DB_NAME } from './shared/constants/storageNames';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { DB_NAME } from './shared/constants/storageNames';
       }
     ), 
     IonicStorageModule.forRoot({name: DB_NAME, storeName: DB_NAME}),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

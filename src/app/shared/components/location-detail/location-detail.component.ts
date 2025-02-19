@@ -3,6 +3,7 @@ import { Current, ICurrent, Location } from '../../interfaces/current.interface'
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { FavoriteService } from '../../../core/services/favorite.service';
 import { ICityResult } from '../../interfaces/cityResult.interface';
+import { SettingsService } from 'src/app/core/services/settings.service';
 
 @Component({
   selector: 'app-location-detail',
@@ -20,15 +21,23 @@ export class LocationDetailComponent  implements OnInit {
   @Output() removeItem: EventEmitter<ICurrent> = new EventEmitter();
 
   isLiked = false;
+  currentScale = '';
 
   constructor(
     private utilsService: UtilsService,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private settings: SettingsService
   ) { }
 
   async ngOnInit() {
     this.isLiked = await this.favoriteService.isLiked(this.locationCity.name);
     console.log('liked ', this.isLiked);
+
+    this.settings.currentScale$.subscribe(
+      res=> {
+        this.currentScale = res;
+      }
+    )
   }
 
   openLikeModal(mode: string) {
